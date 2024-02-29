@@ -101,4 +101,4 @@ for epoch in range(1000):
     if es.step(torch.FloatTensor([val_losses[-1]])) and epoch > 20:
         break
 
-torch.save(encoder, f"{graph}/budget_{budget}/encoder/encoder")
+torch.save(encoder, f"{graph}/budget_{budget}/encoder")
