@@ -13,10 +13,10 @@ random.seed(1)
 torch.manual_seed(1)
 np.random.seed(1)
 
-graph = "wiki_train"
+graph = "DBLP_train"
 pooling = True
 ratio = 0.8
-embedding_size = 30
+embedding_size = 40
 temperature = 0.1
 output_size = 10
 budget = 100
@@ -51,7 +51,7 @@ train_ratio = 0.8
 with open(f"{graph}/budget_{budget}/graph_data", mode="rb") as f:
     data = pickle.load(f)
 random.shuffle(data)
-data = data[:2500]
+data = data[:1500]
 data = [d.to(device) for d in data]
 n = int(len(data) * train_ratio)
 

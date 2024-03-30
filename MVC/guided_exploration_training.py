@@ -21,13 +21,13 @@ if __name__ == "__main__":
     random.seed(1)
     np.random.seed(1)
 
-    graph_name = "youtube_train"
+    graph_name = "DBLP_train"
     encoder_name = "encoder"
     num_eps = 100
     chunksize = 28
     soln_budget = 100
-    subgraph_size = 750
-    selection_budget = 7500
+    subgraph_size = 1000
+    selection_budget = 10000
     gnn_input = 30
     max_memory = 20000
     embedding_size = 10
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         elif opt in ['-A']:
             alpha = float(arg)
 
-    encoder = torch.load(f"{graph_name}/budget_{soln_budget}/{encoder_name}/{encoder_name}", map_location=torch.device("cpu"))
+    encoder = torch.load(f"{graph_name}/budget_{soln_budget}/{encoder_name}", map_location=torch.device("cpu"))
     graph = nx.read_gpickle(f"{graph_name}/main")
     best_embeddings = get_best_embeddings(encoder, f"{graph_name}/budget_{soln_budget}/graph_data")
     encoder.to("cpu")
@@ -115,17 +115,17 @@ if __name__ == "__main__":
             ax1.plot(moving_average(env.ratios, 50))
             ax1.hlines(0.95, 0, len(env.ratios) - 1, colors="red")
             ax2.plot(distances)
-            plt.savefig(f"{graph_name}/budget_{soln_budget}/{encoder_name}/dqn_training.pdf")
+            plt.savefig(f"{graph_name}/budget_{soln_budget}/dqn_training.pdf")
             plt.close(fig)
 
-            with open(f"{graph_name}/budget_{soln_budget}/{encoder_name}/trained_dqn", mode="wb") as f:
+            with open(f"{graph_name}/budget_{soln_budget}/trained_dqn", mode="wb") as f:
                 dqn_ = DQN(gnn_input, embedding_size, ff_size, 0.01, batch_size=0, cuda=cuda)
                 dqn_.memory = ["hold"]
                 dqn_.net = dqn.net
                 pickle.dump(dqn_, f)
                 del dqn_
 
-            with open(f"{graph_name}/budget_{soln_budget}/{encoder_name}/guided_train_ratios", mode="wb") as f:
+            with open(f"{graph_name}/budget_{soln_budget}/guided_train_ratios", mode="wb") as f:
                 pickle.dump(env.ratios, f)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     ax1.plot(moving_average(env.ratios, 50))
     ax1.hlines(0.95, 0, len(env.ratios) - 1, colors="red")
     ax2.plot(distances)
-    plt.savefig(f"{graph_name}/budget_{soln_budget}/{encoder_name}/dqn_training.pdf")
+    plt.savefig(f"{graph_name}/budget_{soln_budget}/dqn_training.pdf")
     plt.close(fig)
 
     dqn.memory = ["hold"]
@@ -141,8 +141,8 @@ if __name__ == "__main__":
     dqn_ = DQN(gnn_input, embedding_size, ff_size, 0.01, batch_size=0, cuda=cuda)
     dqn_.memory = dqn.memory
     dqn_.net = dqn.net
-    with open(f"{graph_name}/budget_{soln_budget}/{encoder_name}/trained_dqn", mode="wb") as f:
+    with open(f"{graph_name}/budget_{soln_budget}/trained_dqn", mode="wb") as f:
         pickle.dump(dqn_, f)
 
-    with open(f"{graph_name}/budget_{soln_budget}/{encoder_name}/guided_train_ratios", mode="wb") as f:
+    with open(f"{graph_name}/budget_{soln_budget}/guided_train_ratios", mode="wb") as f:
         pickle.dump(env.ratios, f)

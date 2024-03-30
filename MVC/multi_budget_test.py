@@ -21,7 +21,7 @@ if __name__ == "__main__":
     encoder_name = "encoder"
     action_limit = 100
     cuda = True
-    budgets = [1, 10, 25, 50, 75]
+    budgets = [1, 10, 25, 50, 75, 100]
     args = sys.argv[1:]
     opts, args = getopt.getopt(args, "g:n:b:a:t:f:C:E:B:")
     for opt, arg in opts:

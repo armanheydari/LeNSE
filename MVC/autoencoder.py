@@ -10,7 +10,7 @@ import numpy as np
 import sys
 import getopt
 
-graph_name = "wiki_train"
+graph_name = "DBLP_train"
 input_size = 10
 num_classes = 3
 num_layers = 1
@@ -33,7 +33,7 @@ torch.random.manual_seed(0)
 np.random.seed(0)
 random.seed(0)
 
-with open(f"{graph_name}/budget_{budget}/encoder/train_data", mode="rb") as f:
+with open(f"{graph_name}/budget_{budget}/train_data", mode="rb") as f:
     data, labels = pickle.load(f)
 
 dataset = CustomDataset(data, labels)
@@ -70,5 +70,5 @@ similarities = torch.norm((good_point.reshape((1, input_size)) - data), p=2, dim
 im1 = ax2.scatter(output[:, 0], output[:, 1], c=similarities)
 fig.colorbar(im1, ax=ax2)
 ax2.title.set_text("L2 distance")
-plt.savefig(f"{graph_name}/budget_{budget}/encoder/embeddings.pdf")
+plt.savefig(f"{graph_name}/budget_{budget}/embeddings.pdf")
 plt.show()

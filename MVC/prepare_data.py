@@ -4,8 +4,8 @@ import pickle
 import sys
 import getopt
 
-graph_name = "wiki_train"
-encoder_graph_name = "wiki_train"
+graph_name = "DBLP_train"
+encoder_graph_name = "DBLP_train"
 budget = 100
 args = sys.argv[1:]
 opts, args = getopt.getopt(args, "g:e:b:")
@@ -21,7 +21,7 @@ load_name = "graph_data"
 save_name = "train_data"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-encoder = torch.load(f"{encoder_graph_name}/budget_{budget}/encoder/encoder")
+encoder = torch.load(f"{encoder_graph_name}/budget_{budget}/encoder")
 encoder = encoder.to(device)
 
 with open(f"{graph_name}/budget_{budget}/{load_name}", mode="rb") as f:
@@ -44,5 +44,5 @@ with torch.no_grad():
     features = torch.FloatTensor(features)
     labels = torch.LongTensor(labels)
 
-    with open(f"{graph_name}/budget_{budget}/encoder/{save_name}", mode="wb") as f:
+    with open(f"{graph_name}/budget_{budget}/{save_name}", mode="wb") as f:
         pickle.dump((features.to("cpu"), labels.to("cpu")), f)

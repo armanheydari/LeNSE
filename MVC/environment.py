@@ -149,7 +149,7 @@ class BaseEnvironment:
         return features, mapping, reverse_mapping
 
     def get_initial_subgraph(self):
-        self.selected_nodes = set(random.sample(self.graph.nodes(), self.subgraph_size))
+        self.selected_nodes = set(random.sample(list(self.graph.nodes()), self.subgraph_size))
         assert len(self.selected_nodes) == self.subgraph_size, "selected node length does not equal subgraph size!!!"
         self.edges = []
         for node in self.selected_nodes:
@@ -525,7 +525,7 @@ class BigGraph(TestEnv):
         self.get_neighbours()
 
     def get_initial_subgraph(self):
-        self.selected_nodes = set(random.sample(self.graph.nodes(), self.subgraph_size))
+        self.selected_nodes = set(random.sample(list[self.graph.nodes()], self.subgraph_size))
         assert len(self.selected_nodes) == self.subgraph_size, "selected node length does not equal subgraph size!!!"
         self.edges = []
         for node in self.selected_nodes:

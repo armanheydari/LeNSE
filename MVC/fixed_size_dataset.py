@@ -16,8 +16,8 @@ if __name__ == '__main__':
     NUM_SAMPLES = 1000
     NUM_CHECKPOINTS = 1
     BUDGET = 100
-    FIXED_SIZE = 200
-    graph_name = "wiki_train"
+    FIXED_SIZE = 100
+    graph_name = "DBLP_train"
     args = sys.argv[1:]
     opts, args = getopt.getopt(args, "g:n:b:c:f:")
     for opt, arg in opts:

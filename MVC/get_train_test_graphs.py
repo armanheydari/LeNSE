@@ -9,7 +9,7 @@ import getopt
 np.random.seed(1)
 random.seed(1)
 
-graph_name = "wiki"
+graph_name = "DBLP"
 EDGES = False
 args = sys.argv[1:]
 opts, args = getopt.getopt(args, "g:e:")
@@ -26,7 +26,7 @@ if not os.path.isdir(f"{graph_name}_train/"):
 if not os.path.isdir(f"{graph_name}_test/"):
     os.mkdir(f"{graph_name}_test/")
 
-n = 0.2  # proportion to be used as train graph
+n = 0.04  # proportion to be used as train graph
 
 graph = nx.read_gpickle(f"{graph_name}/main")
 # graph = relabel_graph(graph)

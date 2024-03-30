@@ -14,11 +14,11 @@ if __name__ == "__main__":
     random.seed(1)
     np.random.seed(1)
 
-    train_graph_name = "youtube_train"
-    test_graph_name = "youtube_test"
+    train_graph_name = "DBLP_train"
+    test_graph_name = "DBLP_test"
     num_eps = 1
     soln_budget = 100
-    subgraph_size = 1250
+    subgraph_size = 1000
     encoder_name = "encoder"
     action_limit = 5000
     cuda = True
@@ -43,18 +43,20 @@ if __name__ == "__main__":
             encoder_name = arg
 
     if not os.path.isdir(f"{test_graph_name}/budget_{soln_budget}/{encoder_name}"):
+        os.mkdir(f"{test_graph_name}/budget_{soln_budget}")
         os.mkdir(f"{test_graph_name}/budget_{soln_budget}/{encoder_name}")
 
-    encoder = torch.load(f"{train_graph_name}/budget_{soln_budget}/{encoder_name}/{encoder_name}", map_location=torch.device("cpu"))
+    encoder = torch.load(f"{train_graph_name}/budget_{soln_budget}/{encoder_name}", map_location=torch.device("cpu"))
     graph = nx.read_gpickle(f"{test_graph_name}/main")
     best_embeddings = None
     encoder.to("cpu")
-    with open(f"{train_graph_name}/budget_{soln_budget}/{encoder_name}/trained_dqn", mode="rb") as f:
+    with open(f"{train_graph_name}/budget_{soln_budget}/trained_dqn", mode="rb") as f:
         dqn = pickle.load(f)
     dqn.epsilon = 0.01
     dqn.device = "cuda" if cuda else "cpu"
     dqn.net = dqn.net.to(dqn.device)
     # env = TestEnv(graph, soln_budget, subgraph_size, encoder, test_graph_name, action_limit=action_limit, beta=50, cuda=cuda)
+    print("Creating graph")
     env = BigGraph(graph, soln_budget, subgraph_size, encoder, test_graph_name, action_limit=action_limit, cuda=cuda)
     ratios = []
     rewards = []
@@ -82,7 +84,7 @@ if __name__ == "__main__":
         plt.xlabel("Test episode number")
         plt.ylabel("Ratio achieved on final subgraph achieved")
         plt.hlines(0.95, 0, num_eps-1, colors="red")
-        plt.savefig(f"{test_graph_name}/budget_{soln_budget}/{encoder_name}/performance_on_test.pdf")
+        plt.savefig(f"{test_graph_name}/budget_{soln_budget}/performance_on_test.pdf")
         plt.show()
 
         mean_r = np.mean(env.ratios)

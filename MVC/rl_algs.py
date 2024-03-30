@@ -44,7 +44,7 @@ class DQN:
             return action, state[idx]
 
         else:
-            state = torch.FloatTensor(state).to(self.device)
+            state = torch.FloatTensor(np.array(state)).to(self.device)
             with torch.no_grad():
                 q_vals = self.net.forward(state)
                 idx = int(torch.argmax(q_vals))
@@ -55,10 +55,10 @@ class DQN:
         if len(self.memory) < self.batch_size:
             return
         states, rewards, next_states, dones = self.get_batch()
-        states = torch.FloatTensor(states).to(self.device)
-        next_states = torch.FloatTensor(next_states).to(self.device)
-        rewards = torch.FloatTensor(rewards).to(self.device)
-        dones = torch.FloatTensor(dones).to(self.device)
+        states = torch.FloatTensor(np.array(states)).to(self.device)
+        next_states = torch.FloatTensor(np.array(next_states)).to(self.device)
+        rewards = torch.FloatTensor(np.array(rewards)).to(self.device)
+        dones = torch.FloatTensor(np.array(dones)).to(self.device)
 
         q_vals = self.net.forward(states)
         targets = self.get_targets(next_states, rewards, dones)
@@ -125,7 +125,7 @@ class GuidedDQN(DQN):
                 return action, state[idx]
 
         else:
-            state = torch.FloatTensor(state).to(self.device)
+            state = torch.FloatTensor(np.array(state)).to(self.device)
             with torch.no_grad():
                 q_vals = self.net.forward(state)
                 idx = int(torch.argmax(q_vals))
