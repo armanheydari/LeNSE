@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from torch_geometric.nn import global_mean_pool, global_max_pool, SAGEConv, TopKPooling
+from torch_geometric.nn import global_mean_pool, global_max_pool, SAGEConv, TopKPooling, GATConv
 from torch.utils.data import Dataset
 import copy
 
@@ -11,11 +11,11 @@ class KPooling(nn.Module):
 
         super(KPooling, self).__init__()
 
-        self.gcn1 = SAGEConv(input_size, hidden_size)
+        self.gcn1 = GATConv(input_size, hidden_size)
         self.first_pool_layer = TopKPooling(hidden_size, ratio)
-        self.gcn2 = SAGEConv(hidden_size, hidden_size)
+        self.gcn2 = GATConv(hidden_size, hidden_size)
         self.second_pool_layer = TopKPooling(hidden_size, ratio)
-        self.gcn3 = SAGEConv(hidden_size, hidden_size)
+        self.gcn3 = GATConv(hidden_size, hidden_size)
         self.third_pool_layer = TopKPooling(hidden_size, ratio)
         self.output_layer = nn.Linear(hidden_size * 2, output_size)
 
@@ -137,9 +137,9 @@ class GNN(nn.Module):
 
         super(GNN, self).__init__()
 
-        self.gcn1 = SAGEConv(input_size, hidden_size)
-        self.gcn2 = SAGEConv(hidden_size, hidden_size)
-        self.gcn3 = SAGEConv(hidden_size, hidden_size)
+        self.gcn1 = GATConv(input_size, hidden_size)
+        self.gcn2 = GATConv(hidden_size, hidden_size)
+        self.gcn3 = GATConv(hidden_size, hidden_size)
         self.output_layer = nn.Linear(hidden_size, num_classes)
 
     def forward(self, data):

@@ -26,8 +26,8 @@ if __name__ == "__main__":
     num_eps = 100
     chunksize = 28
     soln_budget = 100
-    subgraph_size = 1000
-    selection_budget = 10000
+    subgraph_size = 750
+    selection_budget = 7500
     gnn_input = 30
     max_memory = 20000
     embedding_size = 10
@@ -111,10 +111,17 @@ if __name__ == "__main__":
 
         if (episode + 1) % 1 == 0:
             fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
-            ax1.plot(env.ratios)
-            ax1.plot(moving_average(env.ratios, 50))
-            ax1.hlines(0.95, 0, len(env.ratios) - 1, colors="red")
-            ax2.plot(distances)
+            ax1.plot(env.ratios, label='Environment Ratios')
+            ax1.plot(moving_average(env.ratios, 50), label='Moving Average')
+            ax1.hlines(0.95, 0, len(env.ratios) - 1, colors="red", label='Threshold')
+            ax1.set_xlabel('Epoch')
+            ax1.set_ylabel('Value')
+            ax1.set_title('Environment Ratios')
+            ax1.legend()
+            ax2.plot(distances, label='Distances')
+            ax2.set_xlabel('Epoch')
+            ax2.set_ylabel('Distance')
+            ax2.set_title('Distances')
             plt.savefig(f"{graph_name}/budget_{soln_budget}/dqn_training.pdf")
             plt.close(fig)
 

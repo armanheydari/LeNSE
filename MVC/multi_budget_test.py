@@ -13,9 +13,9 @@ if __name__ == "__main__":
     random.seed(1)
     np.random.seed(1)
 
-    train_graph_name = "talk_train"
-    test_graph_name = "talk_75"
-    num_eps = 1
+    train_graph_name = "DBLP_train"
+    test_graph_name = "DBLP_test"
+    num_eps = 3
     soln_budget = 100
     subgraph_size = 1000
     encoder_name = "encoder"
@@ -49,11 +49,11 @@ if __name__ == "__main__":
     if not os.path.isdir(f"{test_graph_name}/budget_{soln_budget}/{encoder_name}"):
         os.mkdir(f"{test_graph_name}/budget_{soln_budget}/{encoder_name}")
 
-    encoder = torch.load(f"{train_graph_name}/budget_{soln_budget}/{encoder_name}/{encoder_name}", map_location=torch.device("cpu"))
+    encoder = torch.load(f"{train_graph_name}/budget_{soln_budget}/{encoder_name}", map_location=torch.device("cpu"))
     graph = nx.read_gpickle(f"{test_graph_name}/main")
     best_embeddings = None
     encoder.to("cpu")
-    with open(f"{train_graph_name}/budget_{soln_budget}/{encoder_name}/trained_dqn", mode="rb") as f:
+    with open(f"{train_graph_name}/budget_{soln_budget}/trained_dqn", mode="rb") as f:
         dqn = pickle.load(f)
     dqn.epsilon = 0.01
     dqn.device = "cuda" if cuda else "cpu"
@@ -98,7 +98,7 @@ if __name__ == "__main__":
         print(f"Average number of edges in final in subgraphs: {mean_e} ({stderror_e}). This is a reduction of {(1 - mean_e / E) * 100}%\n")
         subgraph_lines.append(f"Average number of nodes in final in subgraphs: {mean_n} ({stderror_n}). This is a reduction of {(1 - mean_n / N) * 100}%")
         subgraph_lines.append(f"Average number of edges in final in subgraphs: {mean_e} ({stderror_e}). This is a reduction of {(1 - mean_e / E) * 100}%\n")
-        with open(f"{test_graph_name}/budget_{soln_budget}/{encoder_name}/multi_budget_subgraph_results.txt", mode="w") as f:
+        with open(f"{test_graph_name}/budget_{soln_budget}/multi_budget_subgraph_results.txt", mode="w") as f:
             for line in subgraph_lines:
                 f.write(line)
                 f.write("\n")
@@ -116,7 +116,7 @@ if __name__ == "__main__":
             lines.append(f"Budget {budget}: final ratio was {mean_r:.4f}\n")
             lines.append(f"Budget {budget}: final time was {mean_time:.4f}")
 
-    with open(f"{test_graph_name}/budget_{soln_budget}/{encoder_name}/multi_budget_test_results.txt", mode="w") as f:
+    with open(f"{test_graph_name}/budget_{soln_budget}/multi_budget_test_results.txt", mode="w") as f:
         for line in lines:
             f.write(line)
             f.write("\n")

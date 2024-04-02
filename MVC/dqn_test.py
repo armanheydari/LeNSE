@@ -16,9 +16,9 @@ if __name__ == "__main__":
 
     train_graph_name = "DBLP_train"
     test_graph_name = "DBLP_test"
-    num_eps = 1
+    num_eps = 3
     soln_budget = 100
-    subgraph_size = 1000
+    subgraph_size = 1250
     encoder_name = "encoder"
     action_limit = 5000
     cuda = True

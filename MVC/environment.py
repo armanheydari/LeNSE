@@ -14,7 +14,7 @@ import time
 class BaseEnvironment:
 
     def __init__(self, graph, solution_budget, subgraph_size, encoder, graph_name, action_limit=5000, cuda=False):
-        self.device = "cuda" if cuda else "cpu"
+        self.device = "cuda:2" if cuda else "cpu"
         self.graph = graph
         self.solution_budget = solution_budget
         self.subgraph_size = subgraph_size
@@ -469,7 +469,7 @@ class BigGraphMultiBudget(TestEnvMultiBudget):
         self.get_neighbours()
 
     def get_initial_subgraph(self):
-        self.selected_nodes = set(random.sample(self.graph.nodes(), self.subgraph_size))
+        self.selected_nodes = set(random.sample(list(self.graph.nodes()), self.subgraph_size))
         assert len(self.selected_nodes) == self.subgraph_size, "selected node length does not equal subgraph size!!!"
         self.edges = []
         for node in self.selected_nodes:
@@ -525,7 +525,7 @@ class BigGraph(TestEnv):
         self.get_neighbours()
 
     def get_initial_subgraph(self):
-        self.selected_nodes = set(random.sample(list[self.graph.nodes()], self.subgraph_size))
+        self.selected_nodes = set(random.sample(list(self.graph.nodes()), self.subgraph_size))
         assert len(self.selected_nodes) == self.subgraph_size, "selected node length does not equal subgraph size!!!"
         self.edges = []
         for node in self.selected_nodes:

@@ -8,6 +8,8 @@ from pytorch_metric_learning import losses, miners
 from pytorch_tools import EarlyStopping
 import sys
 import getopt
+import matplotlib.pyplot as plt
+
 
 random.seed(1)
 torch.manual_seed(1)
@@ -16,7 +18,7 @@ np.random.seed(1)
 graph = "DBLP_train"
 pooling = True
 ratio = 0.8
-embedding_size = 40
+embedding_size = 30
 temperature = 0.1
 output_size = 10
 budget = 100
@@ -45,13 +47,14 @@ for opt, arg in opts:
     elif opt in ["-p"]:
         pooling = bool(int(arg))
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cuda:1" if torch.cuda.is_available() else "cpu"
+print(device)
 train_ratio = 0.8
 
 with open(f"{graph}/budget_{budget}/graph_data", mode="rb") as f:
     data = pickle.load(f)
 random.shuffle(data)
-data = data[:1500]
+data = data[:2500]
 data = [d.to(device) for d in data]
 n = int(len(data) * train_ratio)
 
@@ -101,4 +104,14 @@ for epoch in range(1000):
     if es.step(torch.FloatTensor([val_losses[-1]])) and epoch > 20:
         break
 
+plt.figure(figsize=(8, 6))
+plt.plot(losses, label='Training Loss', color='blue')
+plt.plot(val_losses, label='Validation Loss', color='orange')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.title('Training and Validation Loss Curves')
+plt.legend()
+
+# Save the figure
+plt.savefig(f"{graph}/budget_{budget}/embedding_training_losses.png")
 torch.save(encoder, f"{graph}/budget_{budget}/encoder")

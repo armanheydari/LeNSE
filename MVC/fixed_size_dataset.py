@@ -16,7 +16,7 @@ if __name__ == '__main__':
     NUM_SAMPLES = 1000
     NUM_CHECKPOINTS = 1
     BUDGET = 100
-    FIXED_SIZE = 100
+    FIXED_SIZE = 200
     graph_name = "DBLP_train"
     args = sys.argv[1:]
     opts, args = getopt.getopt(args, "g:n:b:c:f:")
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         good_seeds = greedy_mvc(graph, BUDGET)
         best_score = cover(graph, good_seeds)
         end = time.time()
-        print(f"It took {(end - start) / 60:.3f} minutes\n")
+        # print(f"It took {(end - start) / 60:.3f} minutes\n")
         if not os.path.isdir(f"{graph_name}/budget_{BUDGET}/"):
             os.mkdir(f"{graph_name}/budget_{BUDGET}/")
         with open(f"{graph_name}/budget_{BUDGET}/score_and_seeds", mode="wb") as f:
