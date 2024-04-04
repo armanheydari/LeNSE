@@ -1,4 +1,4 @@
 Graph: DBLP_test. Budget: 100. Fixed graph size: 1000.
-Average number of nodes in final in subgraphs: 12654.666666666666 (66.2475715837248). This is a reduction of 96.00824343364246%
-Average number of edges in final in subgraphs: 12571.0 (66.2475715837248). This is a reduction of 98.80067393519384%
+Average number of nodes in final in subgraphs: 5889.0 (146.30333785210325). This is a reduction of 98.14238849283957%
+Average number of edges in final in subgraphs: 5003.666666666667 (146.30333785210325). This is a reduction of 99.52262923769509%
 

@@ -1,25 +1,25 @@
 Graph: DBLP_test. Budget: 100. Fixed graph size: 1000.
-Budget 1: average ratio was 0.5010, std error was 0.01674609999588594
+Budget 1: average ratio was 0.1163, std error was 0.008986064433619868
 
-Budget 1: average time was 0.0001, std error was 5.257033500387316e-06
+Budget 1: average time was 0.0000, std error was 2.5208493317927817e-06
 
-Budget 10: average ratio was 0.5351, std error was 0.01631914560505601
+Budget 10: average ratio was 0.1218, std error was 0.002650328167326119
 
-Budget 10: average time was 0.0008, std error was 1.8147414229636683e-05
+Budget 10: average time was 0.0003, std error was 1.0390411746998829e-05
 
-Budget 25: average ratio was 0.5049, std error was 0.0069652709752561414
+Budget 25: average ratio was 0.1186, std error was 0.004398392586140293
 
-Budget 25: average time was 0.0020, std error was 2.9320652645325303e-05
+Budget 25: average time was 0.0008, std error was 2.568284670477726e-05
 
-Budget 50: average ratio was 0.4876, std error was 0.004648889413164258
+Budget 50: average ratio was 0.1174, std error was 0.004389816137470133
 
-Budget 50: average time was 0.0040, std error was 6.771294878537202e-05
+Budget 50: average time was 0.0016, std error was 4.7787733044525825e-05
 
-Budget 75: average ratio was 0.4738, std error was 0.004101615450612718
+Budget 75: average ratio was 0.1170, std error was 0.004633983831251865
 
-Budget 75: average time was 0.0059, std error was 0.00011869590970901057
+Budget 75: average time was 0.0024, std error was 7.089160111913446e-05
 
-Budget 100: average ratio was 0.4548, std error was 0.00233656467582177
+Budget 100: average ratio was 0.1165, std error was 0.004591896520439122
 
-Budget 100: average time was 0.0079, std error was 0.00012419498839566493
+Budget 100: average time was 0.0031, std error was 0.000111131126267536
 

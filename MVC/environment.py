@@ -55,8 +55,14 @@ class BaseEnvironment:
 
     def get_one_hop_neighbours(self):
         for node in self.graph.nodes():
-            neighbours = [(u, v) for u, v in list(self.graph.edges(node))]
+            one_hop_neighbours = [(u, v) for u, v in list(self.graph.edges(node))]
             self.adjacent_nodes[node] = [u for u in list(self.graph.neighbors(node))]
+            neighbours = one_hop_neighbours.copy()
+            for neighbour in  list(self.graph.neighbors(node)):
+                two_hop_neighbours = [(u, v) for u, v in list(self.graph.edges(neighbour))]
+                temp = [u for u in list(self.graph.neighbors(neighbour))]
+                self.adjacent_nodes[node].extend(temp)
+                neighbours.extend(two_hop_neighbours)
             self.adjacent_nodes[node] = set(self.adjacent_nodes[node])
             self.one_hop_neighbours[node] = neighbours
 

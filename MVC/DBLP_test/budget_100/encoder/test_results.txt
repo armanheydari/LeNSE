@@ -1,8 +1,8 @@
 Graph: DBLP_test. Budget: 100. Fixed graph size: 1250. Number of nodes: 317020. Number of edges: 1048172
-Average ratio was 0.7033, variance was 0.00010048823503944291
-Average number of nodes in final in subgraphs: 42371.666666666664 (326.91056654461096). This is a reduction of 86.63438689462284%
-Average number of edges in final in subgraphs: 51069.333333333336 (326.91056654461096). This is a reduction of 95.12777165070872%
+Average ratio was 0.1090, variance was 2.2010392284231443e-05
+Average number of nodes in final in subgraphs: 6905.666666666667 (49.98740582127403). This is a reduction of 97.82169368914685%
+Average number of edges in final in subgraphs: 5795.333333333333 (49.98740582127403). This is a reduction of 99.44710092109564%
 
-Average time taken for LeNSE was 12.305833919843039 minutes.
-Average time taken for heuristic was 0.04120623138215807 minutes.
-Average total time taken was 12.347040151225196 minutes.
+Average time taken for LeNSE was 3.2875160071584912 minutes.
+Average time taken for heuristic was 0.004593014717102051 minutes.
+Average total time taken was 3.2921090218755933 minutes.
